@@ -4,32 +4,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Cache node modules
-        id: node_modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # caching node_modules
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-node_modules-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: ${{ steps.node_modules.outputs.cache-hit != 'true '}}
-        run: npm ci
-      - name: Build Project
-        run: npm run build
-
   deploy:
-    needs: [build]
     name: deploy
     runs-on: ubuntu-latest
     steps:
