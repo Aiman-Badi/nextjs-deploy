@@ -42,4 +42,4 @@ jobs:
           port: 22
           script: |
             cd /home/${{ secrets.USERNAME }}/test/nextjs-deploy
-            git pull && npm ci && npm run build && docker compose up -d
+            git pull && docker compose up -d
